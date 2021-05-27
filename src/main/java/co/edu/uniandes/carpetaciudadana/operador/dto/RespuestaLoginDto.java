@@ -6,5 +6,6 @@ import lombok.Data;
 public class RespuestaLoginDto {
 
     private String token;
+    private OperadorDto operador;
 
 }

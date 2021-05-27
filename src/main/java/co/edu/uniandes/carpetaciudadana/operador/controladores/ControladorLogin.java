@@ -1,5 +1,6 @@
 package co.edu.uniandes.carpetaciudadana.operador.controladores;
 
+import co.edu.uniandes.carpetaciudadana.operador.dto.OperadorDto;
 import co.edu.uniandes.carpetaciudadana.operador.dto.PeticionLoginDto;
 import co.edu.uniandes.carpetaciudadana.operador.dto.RespuestaLoginDto;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +24,14 @@ public class ControladorLogin {
                 SEPARADOR, peticion.getUsername(), token, SEPARADOR);
         System.out.println();
         respuesta.setToken(token);
+        respuesta.setOperador(getOperador());
         return respuesta;
+    }
+
+    private static OperadorDto getOperador() {
+        OperadorDto operador = new OperadorDto();
+        operador.setCodigoOperador("MC_002");
+        operador.setNombreOperador("MI CARPETA");
+        return operador;
     }
 }
