@@ -13,19 +13,26 @@ import java.util.UUID;
 @RequestMapping("/")
 public class ControladorLogin {
 
-    public static final String SEPARADOR =
+    private static final String SEPARADOR =
             "\n===============================================================\n";
 
     @PostMapping("proveedor-identidad/login")
     public RespuestaLoginDto login(PeticionLoginDto peticion) {
         String token = UUID.randomUUID().toString();
         RespuestaLoginDto respuesta = new RespuestaLoginDto();
-        System.out.printf("%sSe ha generado un nuevo token.\nUsuario: [%s]\nToken: [%s]%s",
-                SEPARADOR, peticion.getUsername(), token, SEPARADOR);
-        System.out.println();
         respuesta.setToken(token);
         respuesta.setOperador(getOperador());
+        imprimirLogsLogin(peticion, respuesta);
         return respuesta;
+    }
+
+    private void imprimirLogsLogin(PeticionLoginDto peticion, RespuestaLoginDto respuesta) {
+        System.out.printf("%sOPERACION: Autenticacion y Autorizacion.%s\n",
+                SEPARADOR, SEPARADOR);
+        System.out.printf("Usuario: [%s]\nToken Generado: [%s]\n", peticion.getUsername(), respuesta.getToken());
+        System.out.printf("Operador Autorizado: \n\t- Codigo: [%s]\n\t- Nombre: [%s]",
+                respuesta.getOperador().getCodigoOperador(), respuesta.getOperador().getNombreOperador());
+        System.out.println(SEPARADOR);
     }
 
     private static OperadorDto getOperador() {
